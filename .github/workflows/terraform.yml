@@ -3,7 +3,7 @@ name: Provision EC2 and Run Ansible
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   provision:
