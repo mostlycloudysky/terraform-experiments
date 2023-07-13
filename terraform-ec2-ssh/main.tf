@@ -54,6 +54,17 @@ resource "aws_instance" "cloudysky-ec2" {
   }
 }
 
+resource "aws_instance" "cloudysky-terraform-ec2-ansible" {
+  ami                    = var.ami_id
+  instance_type          = "t2.micro"
+  key_name               = var.ami_key_pair
+  subnet_id              = aws_subnet.cloudysky-subnet.id
+  vpc_security_group_ids = [aws_security_group.cloudsky-ingress-all.id]
+  tags = {
+    Name = "cloudysky-ec2-ansible-test"
+  }
+}
+
 # To access the instance, we would need an elastic IP
 resource "aws_eip" "cloudysky-eip" {
   instance = aws_instance.cloudysky-ec2.id

@@ -1,0 +1,12 @@
+---
+- name: Example Playbook
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Install NodeJs
+      yum:
+        name: nodejs
+        state: present
+
+# ansible-playbook -i "localhost," playbook.yml

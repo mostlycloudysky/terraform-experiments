@@ -1,0 +1,10 @@
+---
+- name: Install Java Runtime Environment
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install Java JRE
+      yum:
+        name: java-1.8.0-openjdk
+        state: present
+      delegate_to: "{{ target_ip }}"
