@@ -23,6 +23,7 @@ jobs:
 
       - name: Terraform init
         run: terraform init
+        working-directory: terraform-ec2-ssh
 
       - name: Terraform apply
         id: terraform
