@@ -13,9 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Change to terraform directory
-        run: cd terraform-ec2-ssh
-
       - name: List out directory
         run: ls
 
@@ -30,6 +27,7 @@ jobs:
       - name: Terraform apply
         id: terraform
         run: terraform apply -auto-approve
+        working-directory: terraform-ec2-ssh
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
