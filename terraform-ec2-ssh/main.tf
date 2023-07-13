@@ -55,6 +55,8 @@ resource "aws_instance" "cloudysky-ec2" {
   }
 }
 
+# Create a new instance
+
 resource "aws_instance" "cloudysky-terraform-ec2-ansible" {
   ami                    = var.ami_id
   instance_type          = "t2.micro"
