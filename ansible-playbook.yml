@@ -1,24 +1,11 @@
-# Ansible Playbook: ansible-playbook.yml
-- name: Install and configure Apache
-  hosts: ec2-instace
-  become: true
-# task to install python
+---
+- name: Example Playbook
+  hosts: localhost
+  connection: local
+
   tasks:
-    - name: Install python
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-      register: output
-      changed_when: output.stdout != ""
+    - name: Print a message
+      debug:
+        msg: "Hello, Ansible on localhost!"
 
-      # task to install nodejs
-    - name: Install nodejs
-      raw: test -e /usr/bin/node || (apt -y update && apt install -y nodejs)
-      register: output
-      changed_when: output.stdout != ""
-
-      # task to install npm package
-    - name: Install npm
-      raw: test -e /usr/bin/npm || (apt -y update && apt install -y npm)
-      register: output
-      changed_when: output.stdout != ""
-
-      # task to install pm2 package
+# ansible-playbook -i "localhost," playbook.yml
