@@ -16,6 +16,9 @@ jobs:
       - name: Change to terraform directory
         run: cd terraform-ec2-ssh
 
+      - name: List out directory
+        run: ls
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
