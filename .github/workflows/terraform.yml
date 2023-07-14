@@ -39,9 +39,9 @@ jobs:
         id: instance
         run: |
           echo "::set-output name=ip::$(terraform output -raw instance_public_ip)"
-     
       - name: Print IP
-        run: echo "Instance IP: ${{ needs.setup.outputs.ip }}"
+        run: |
+          echo "Instance IP: ${{ needs.setup.outputs.ip }}"
      
       - name: Setup Python
         uses: actions/setup-python@v2
