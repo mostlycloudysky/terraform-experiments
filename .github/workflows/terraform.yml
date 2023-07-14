@@ -47,12 +47,6 @@ jobs:
       - name: Install Ansible
         run: pip install ansible
 
-      - name: Wait for SSH
-        run: |
-          until nc -zvw3 ${{ needs.setup.outputs.ip }} 22; do
-            sleep 5
-          done
-
       - name: Run Ansible playbook
         run: ansible-playbook -i "${{ needs.setup.outputs.ip }}," playbook.yml
         env:
