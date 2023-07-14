@@ -64,7 +64,7 @@ resource "aws_instance" "cloudysky-terraform-ec2-ansible" {
   subnet_id              = aws_subnet.cloudysky-subnet.id
   vpc_security_group_ids = [aws_security_group.cloudsky-ingress-all.id]
   tags = {
-    Name = "cloudysky-ec2-ansible-test"
+    Name = "cloudysky-terraform-ec2-ansible"
   }
 }
 
