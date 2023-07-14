@@ -37,23 +37,26 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Get EC2 instance IP address
-        id: ec2
-        run: echo "::set-output name=ip_address::$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=cloudysky-terraform-ec2-ansible' --query 'Reservations[].Instances[].PublicIpAddress' --output text)"
-
-      - name: Wait for EC2 instance to be available
-        id: wait
+      - name: Output Instance Public IP
+        id: instance
         run: |
-          ip_address="${{ steps.ec2.outputs.ip_address }}"
-          aws ec2 wait instance-status-ok --instance-ids $(aws ec2 describe-instances --filters "Name=private-ip-address,Values=$ip_address" --query 'Reservations[].Instances[].InstanceId' --output text)
-
-      - name: Configure SSH
-        uses: webfactory/ssh-agent@v0.5.1
+          echo "::set-output name=ip::$(terraform output -raw instance_public_ip)"
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          python-version: 3.x
 
       - name: Install Ansible
-        run: sudo yum update && sudo yum install -y ansible
+        run: pip install ansible
+
+      - name: Wait for SSH
+        run: |
+          until nc -zvw3 ${{ needs.setup.outputs.ip }} 22; do
+            sleep 5
+          done
 
       - name: Run Ansible playbook
-        run: ansible-playbook -e "target_ip=${{ steps.ec2.outputs.ip_address }}" playbook.yml
+        run: ansible-playbook -i "${{ needs.setup.outputs.ip }}," playbook.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
