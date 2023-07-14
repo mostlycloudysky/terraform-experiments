@@ -43,7 +43,7 @@ resource "aws_security_group" "cloudsky-ingress-all" {
 
 }
 
-# EC2 Instance
+# EC2 Instance for testing
 resource "aws_instance" "cloudysky-ec2" {
   ami                    = var.ami_id
   instance_type          = "t2.micro"
