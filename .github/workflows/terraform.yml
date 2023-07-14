@@ -47,8 +47,19 @@ jobs:
       - name: Install Ansible
         run: pip install ansible
 
+      - name: Wait for SSH
+      run: |
+        while ((1)); do
+          nc -zvw3 ${{ needs.setup.outputs.ip }} 22 && echo "SSH is ready" && break
+          echo "Waiting for SSH..."
+          sleep 5
+        done
+
       - name: Run Ansible playbook
-        run: ansible-playbook -i "${{ needs.setup.outputs.ip }}," playbook.yml
+        run: |
+          echo "[ec2]" > inventory
+          echo "${{ needs.setup.outputs.ip }}" >> inventory
+          ansible-playbook -i inventory playbook.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
           PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
