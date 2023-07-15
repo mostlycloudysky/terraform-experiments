@@ -20,6 +20,7 @@ jobs:
 
       - name: Terraform init
         run: terraform init
+│ -upgrade
 
       - name: Terraform apply
         id: terraform
