@@ -38,7 +38,8 @@ jobs:
       - name: Output Instance Public IP
         id: instance
         run: |
-          echo "EC2 Public IP: $(terraform output -raw instance_public_ip)"
+          terraform version
+          terraform output -raw instance_public_ip
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
      
