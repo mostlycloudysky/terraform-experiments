@@ -3,7 +3,7 @@ name: Provision EC2 and Run Ansible
 on: workflow_dispatch
 
 jobs:
-  terraform:
+  runterraform:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -57,7 +57,7 @@ jobs:
       steps:
         - name: Use the IP
           run: |
-            echo "The public IP from the terraform job is ${{ needs.terraform.public_ip }}"  # Use the job output
+            echo "The public IP from the terraform job is ${{ needs.runterraform.public_ip }}"  # Use the job output
 
   # AnsibleSetup:
   #   needs: terraform
