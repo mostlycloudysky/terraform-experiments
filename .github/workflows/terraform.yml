@@ -50,20 +50,31 @@ jobs:
 
     outputs:
       public_ip: ${{ steps.ip.outputs.PUBLIC_IP }}
-  AnsibleSetup:
-    needs: terraform
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
 
-      - name: Install Ansible
-        run: pip install ansible
+    ansible:
+      needs: terraform  # Make this job depend on the `terraform` job
+      runs-on: ubuntu-latest
+      steps:
+        - name: Use the IP
+          run: |
+            echo "The public IP from the terraform job is ${{ needs.terraform.public_ip }}"  # Use the job output
 
-      - name: print ip
-        run: echo ${{ needs.terraform.public_ip }}
+  # AnsibleSetup:
+  #   needs: terraform
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: print ip
+  #       run: |
+  #         echo "The public IP from the terraform job is ${{ needs.terraform.public_ip }}" 
+  #     - name: Setup Python
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.x
+
+  #     - name: Install Ansible
+  #       run: pip install ansible
+
+
 
       # - name: Wait for SSH
       #   run: |
