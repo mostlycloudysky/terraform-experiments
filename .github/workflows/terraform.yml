@@ -41,8 +41,6 @@ jobs:
           echo "EC2 Public IP: $(terraform output -raw instance_public_ip)"
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-      # - name: Print IP
-      #   run: echo "Instance IP: ${{ needs.setup.outputs.ip }}"
      
       # - name: Setup Python
       #   uses: actions/setup-python@v2
