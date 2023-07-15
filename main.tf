@@ -16,9 +16,10 @@ resource "aws_vpc" "cloudysky-vpc" {
 # Subnet
 # Refer http://blog.itsjustcode.net/blog/2017/11/18/terraform-cidrsubnet-deconstructed/
 resource "aws_subnet" "cloudysky-subnet" {
-  vpc_id            = aws_vpc.cloudysky-vpc.id
-  cidr_block        = cidrsubnet(aws_vpc.cloudysky-vpc.cidr_block, 3, 1)
-  availability_zone = "us-east-1a"
+  vpc_id                  = aws_vpc.cloudysky-vpc.id
+  cidr_block              = cidrsubnet(aws_vpc.cloudysky-vpc.cidr_block, 3, 1)
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = true
 }
 
 # Security Group

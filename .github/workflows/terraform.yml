@@ -35,35 +35,43 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Output Instance Public IP
+      - name: Print Instance Public IP
         id: instance
         run: |
           terraform version
           terraform output -raw instance_public_ip
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+
+
+      - name: Output Instance Public IP
+        id: instance
+        run: |
+          echo "::set-output name=ip::$(terraform output -raw instance_public_ip)"
+        env:
+          TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
      
-      # - name: Setup Python
-      #   uses: actions/setup-python@v2
-      #   with:
-      #     python-version: 3.x
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
 
-      # - name: Install Ansible
-      #   run: pip install ansible
+      - name: Install Ansible
+        run: pip install ansible
 
-      # - name: Wait for SSH
-      #   run: |
-      #     while ((1)); do
-      #       nc -zvw3 ${{ needs.setup.outputs.ip }} 22 && echo "SSH is ready" && break
-      #       echo "Waiting for SSH..."
-      #       sleep 5
-      #     done
+      - name: Wait for SSH
+        run: |
+          while ((1)); do
+            nc -zvw3 ${{ needs.terraform.outputs.ip }} 22 && echo "SSH is ready" && break
+            echo "Waiting for SSH..."
+            sleep 5
+          done
 
-      # - name: Run Ansible playbook
-      #   run: |
-      #     echo "[ec2]" > inventory
-      #     echo "${{ needs.setup.outputs.ip }}" >> inventory
-      #     ansible-playbook -i inventory playbook.yml
-      #   env:
-      #     ANSIBLE_HOST_KEY_CHECKING: False
-      #     PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Run Ansible playbook
+        run: |
+          echo "[ec2]" > inventory
+          echo "${{ needs.terraform.outputs.ip }}" >> inventory
+          ansible-playbook -i inventory playbook.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
