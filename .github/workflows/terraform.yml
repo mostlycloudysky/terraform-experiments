@@ -8,7 +8,6 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -45,12 +44,13 @@ jobs:
 
 
       - name: Output Instance Public IP
-        id: ip
+        id: instance
         run: |
           echo "::set-output name=ip::$(terraform output -raw instance_public_ip)"
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-     
+  AnsibleSetup:
+    needs: terraform
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
