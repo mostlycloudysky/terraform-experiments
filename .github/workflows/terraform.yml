@@ -59,6 +59,9 @@ jobs:
       - name: Install Ansible
         run: pip install ansible
 
+      - name: print ip
+        run: echo ${{ needs.terraform.outputs.ip }}
+
       - name: Wait for SSH
         run: |
           while ((1)); do
