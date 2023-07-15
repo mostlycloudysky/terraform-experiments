@@ -43,7 +43,7 @@ jobs:
       - name: Output Instance Public IP
         id: ip
         run: |
-          echo "::set-output name=ip::$(terraform output -raw instance_public_ip)"
+          echo "PUBLIC_IP=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   AnsibleSetup:
@@ -59,21 +59,21 @@ jobs:
         run: pip install ansible
 
       - name: print ip
-        run: echo ${{ needs.terraform.outputs.ip }}
+        run: echo ${{ needs.terraform.outputs.PUBLIC_IP }}
 
-      - name: Wait for SSH
-        run: |
-          while ((1)); do
-            nc -zvw3 ${{ needs.terraform.outputs.ip }} 22 && echo "SSH is ready" && break
-            echo "Waiting for SSH..."
-            sleep 5
-          done
+      # - name: Wait for SSH
+      #   run: |
+      #     while ((1)); do
+      #       nc -zvw3 ${{ needs.terraform.outputs.ip }} 22 && echo "SSH is ready" && break
+      #       echo "Waiting for SSH..."
+      #       sleep 5
+      #     done
 
-      - name: Run Ansible playbook
-        run: |
-          echo "[ec2]" > inventory
-          echo "${{ needs.terraform.outputs.ip }}" >> inventory
-          ansible-playbook -i inventory playbook.yml
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: False
-          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      # - name: Run Ansible playbook
+      #   run: |
+      #     echo "[ec2]" > inventory
+      #     echo "${{ needs.terraform.outputs.ip }}" >> inventory
+      #     ansible-playbook -i inventory playbook.yml
+      #   env:
+      #     ANSIBLE_HOST_KEY_CHECKING: False
+      #     PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
