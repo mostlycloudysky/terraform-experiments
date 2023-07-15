@@ -37,7 +37,7 @@ jobs:
         id: ip
         run: |
           terraform version
-          IP=$(terraform output -raw instance_public_ip | awk '/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/{print $1}')
+          IP=$(terraform --nowrap output -raw instance_public_ip)
           echo "::set-output name=PUBLIC_IP::$IP"
           echo "The public IP is $IP"
         env:
