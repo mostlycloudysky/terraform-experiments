@@ -45,7 +45,7 @@ jobs:
 
 
       - name: Output Instance Public IP
-        id: instance
+        id: ip
         run: |
           echo "::set-output name=ip::$(terraform output -raw instance_public_ip)"
         env:
