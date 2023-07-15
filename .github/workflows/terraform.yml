@@ -45,6 +45,9 @@ jobs:
           echo "::set-output name=PUBLIC_IP::$(terraform output -raw instance_public_ip | awk -F'::debug::' '{print $1}')"
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+
+        outputs:
+          public_ip: ${{ steps.ip.outputs.PUBLIC_IP }}
   AnsibleSetup:
     needs: terraform
     runs-on: ubuntu-latest
@@ -58,7 +61,7 @@ jobs:
         run: pip install ansible
 
       - name: print ip
-        run: echo ${{ needs.terraform.outputs.PUBLIC_IP }}
+        run: echo ${{ needs.terraform.public_ip }}
 
       # - name: Wait for SSH
       #   run: |
