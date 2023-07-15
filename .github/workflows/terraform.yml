@@ -43,7 +43,7 @@ jobs:
       - name: Output Instance Public IP
         id: ip
         run: |
-          echo "PUBLIC_IP=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
+          echo "PUBLIC_IP=$(terraform output -raw instance_public_ip)" >> "$GITHUB_OUTPUT"
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   AnsibleSetup:
