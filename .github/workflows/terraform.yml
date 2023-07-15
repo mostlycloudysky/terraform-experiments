@@ -36,7 +36,6 @@ jobs:
       - name: Output Instance Public IP
         id: ip
         run: |
-          terraform version
           IP=$(terraform output -raw instance_public_ip)
           echo "::set-output name=PUBLIC_IP::$IP"
           echo "The public IP is $IP"
