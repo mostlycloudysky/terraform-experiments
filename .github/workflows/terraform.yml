@@ -44,7 +44,7 @@ jobs:
 
 
       - name: Output Instance Public IP
-        id: instance
+        id: ip
         run: |
           export ip=$(terraform output -raw instance_public_ip)
           echo "::set-env name=ip::$ip"
@@ -52,6 +52,8 @@ jobs:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   AnsibleSetup:
     needs: terraform
+    runs-on: ubuntu-latest
+    steps:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
