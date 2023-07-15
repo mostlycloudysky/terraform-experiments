@@ -40,7 +40,7 @@ jobs:
           echo "The public IP is $IP"
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-        outputs:
+    outputs:
       public_ip: ${{ steps.ip.outputs.PUBLIC_IP }}
 
 
