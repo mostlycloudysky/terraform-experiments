@@ -17,5 +17,5 @@
       changed_when: false
 
     - name: Print Node.js version
-          debug:
-            msg: "Node.js version is {{ node_version.stdout }}"
+      debug:
+        msg: "Node.js version is {{ node_version.stdout }}"
