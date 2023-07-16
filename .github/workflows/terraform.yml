@@ -69,6 +69,14 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
+
+      - name: Wait for SSH to come up
+        run: |
+          while ! nc -z ${{ needs.runterraform.outputs.public_ip }} 22; do   
+            echo "Waiting for SSH..." # Optional: -n 1 to check once per second
+            sleep 5
+          done
+
       - name: Test SSH Connection
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@${{ needs.runterraform.outputs.public_ip }}
