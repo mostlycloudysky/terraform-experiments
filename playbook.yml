@@ -32,6 +32,6 @@
         cmd: node -v
       register: node_version
 
-   - name: Display Node.js version
-      debug:
-        msg: "Node.js version is {{ node_version.stdout }}"
+    - name: Display Node.js version
+        debug:
+          msg: "Node.js version is {{ node_version.stdout }}"
