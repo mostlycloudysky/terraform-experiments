@@ -56,6 +56,18 @@ resource "aws_instance" "cloudysky-ec2" {
   }
 }
 
+resource "null_resource" "ec2_delay" {
+
+  provisioner "local-exec" {
+    command = "sleep 120"
+  }
+
+  triggers = {
+    instance_ids = "${aws_instance.cloudysky-ec2.id}"
+  }
+
+}
+
 # To access the instance, we would need an elastic IP
 resource "aws_eip" "cloudysky-eip" {
   instance = aws_instance.cloudysky-ec2.id
