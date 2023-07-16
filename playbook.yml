@@ -8,6 +8,13 @@
     ansible_user: ec2-user
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
+    - name: Wait for SSH to come up
+      wait_for:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        delay: 60
+        timeout: 900
+        state: started
     - name: Update all packages
       dnf:
         name: '*'
