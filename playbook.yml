@@ -8,6 +8,11 @@
     ansible_user: ec2-user
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
+    - name: Update all packages
+      yum:
+        name: "*"
+        state: latest
+        
     - name: Enable Node.js from Amazon Linux Extras
       command: amazon-linux-extras install -y nodejs
 
