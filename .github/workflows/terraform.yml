@@ -53,6 +53,25 @@ jobs:
         run: |
           echo "The public IP from the terraform job is ${{ needs.runterraform.outputs.public_ip }}"
 
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install Ansible
+        run: python -m pip install --upgrade pip && pip install ansible
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Run Ansible playbook
+        run: ansible-playbook playbook.yml -i ${{ needs.runterraform.outputs.public_ip }},
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
+
   # AnsibleSetup:
   #   needs: terraform
   #   runs-on: ubuntu-latest
