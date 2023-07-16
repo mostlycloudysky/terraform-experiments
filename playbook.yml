@@ -10,11 +10,11 @@
   tasks:
     - name: Update all packages
       dnf:
-        name: "*"
+        name: '*'
         state: latest
     - name: Install tar and xz for unpacking Node.js binaries
       dnf:
-        name: 
+        name:
           - tar
           - xz
         state: present
@@ -33,5 +33,5 @@
       register: node_version
 
     - name: Display Node.js version
-        debug:
-          msg: "Node.js version is {{ node_version.stdout }}"
+      debug:
+        msg: 'Node.js version is {{ node_version.stdout }}'
