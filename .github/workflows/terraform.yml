@@ -73,10 +73,17 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@${{ needs.runterraform.outputs.public_ip }}
 
-      - name: Run Ansible playbook
-        run: ansible-playbook playbook.yml -i ${{ needs.runterraform.outputs.public_ip }},
+
+      - name: Create Ansible Inventory
+        run: |
+          echo '[ec2_instance]' > inventory.ini
+          echo '${{ needs.runterraform.outputs.public_ip }}' >> inventory.ini
+
+      - name: Run Ansible Playbook
+        run: ansible-playbook -i inventory.ini playbook.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
+
 
   # AnsibleSetup:
   #   needs: terraform
