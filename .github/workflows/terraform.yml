@@ -71,11 +71,7 @@ jobs:
 
 
       - name: Wait for SSH to come up
-        run: |
-          while ! nc -z ${{ needs.runterraform.outputs.public_ip }} 22; do   
-            echo "Waiting for SSH..." # Optional: -n 1 to check once per second
-            sleep 5
-          done
+        run: sleep 60
 
       - name: Test SSH Connection
         run: |
