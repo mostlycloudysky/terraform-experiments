@@ -8,10 +8,14 @@
     ansible_user: ec2-user
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
-    - name: Install EPEL
-      yum:
-        name: epel-release
-        state: present
+    - name: Get NodeSource Node.js Binary Distributions setup script
+      get_url:
+        url: https://rpm.nodesource.com/setup_14.x
+        dest: /tmp/setup_14.x
+        mode: '0755'
+
+    - name: Run setup script
+      command: /tmp/setup_14.x
 
     - name: Install Node.js
       yum:
