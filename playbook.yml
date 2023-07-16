@@ -9,18 +9,29 @@
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
     - name: Update all packages
-      yum:
+      dnf:
         name: "*"
         state: latest
-        
-    - name: Enable Node.js from Amazon Linux Extras
-      command: amazon-linux-extras install -y nodejs
+    - name: Install tar and xz for unpacking Node.js binaries
+      dnf:
+        name: 
+          - tar
+          - xz
+        state: present
 
+    - name: Download Node.js binary tarball
+      get_url:
+        url: https://nodejs.org/dist/v14.17.0/node-v14.17.0-linux-x64.tar.xz
+        dest: /tmp/node-v14.17.0-linux-x64.tar.xz
+
+    - name: Extract Node.js binary tarball
+      command:
+        cmd: tar -xf /tmp/node-v14.17.0-linux-x64.tar.xz -C /usr/local --strip-components 1
     - name: Verify Node.js installation
-      command: node -v
+      command:
+        cmd: node -v
       register: node_version
-      changed_when: false
 
-    - name: Print Node.js version
+   - name: Display Node.js version
       debug:
         msg: "Node.js version is {{ node_version.stdout }}"
