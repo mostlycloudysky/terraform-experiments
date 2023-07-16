@@ -69,6 +69,10 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
+      - name: Test SSH Connection
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@${{ needs.terraform.outputs.PUBLIC_IP }}
+
       - name: Run Ansible playbook
         run: ansible-playbook playbook.yml -i ${{ needs.runterraform.outputs.public_ip }},
         env:
