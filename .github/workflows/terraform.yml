@@ -64,9 +64,9 @@ jobs:
         run: |
           until echo exit | ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@${{ needs.runterraform.outputs.public_ip }}; do
             echo "Waiting for SSH to come up..."
-            sleep 10
+            sleep 120
           done
-        timeout-minutes: 15
+        timeout-minutes: 25
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Use the IP
