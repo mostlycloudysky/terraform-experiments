@@ -49,6 +49,14 @@ jobs:
     needs: runterraform  # Make this job depend on the `terraform` job
     runs-on: ubuntu-latest
     steps:
+
+      - name: Wait for SSH to come up
+        run: |
+          until nc -z ${{ needs.runterraform.outputs.public_ip }} 22; do
+            echo "Waiting for SSH to come up..."
+            sleep 10
+          done
+        timeout-minutes: 15
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Use the IP
