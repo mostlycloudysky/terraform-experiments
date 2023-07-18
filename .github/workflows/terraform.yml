@@ -49,6 +49,9 @@ jobs:
     needs: runterraform  # Make this job depend on the `terraform` job
     runs-on: ubuntu-latest
     steps:
+    
+      - name: Delay for 20 mins
+        run: sleep 1200
 
       - name: Set up SSH
         run: |
@@ -60,16 +63,16 @@ jobs:
       #   run: |
       #     ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@${{ needs.runterraform.outputs.public_ip }}
 
-      - name: Wait for SSH to come up
-        run: |
-          timeout=600
-          while ((timeout > 0))
-          do
-            ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@${{ needs.runterraform.outputs.public_ip }} uptime && break
-            timeout=$((timeout - 10))
-            sleep 10
-          done
-        timeout-minutes: 20
+#       - name: Wait for SSH to come up
+#         run: |
+#           timeout=600
+#           while ((timeout > 0))
+#           do
+#             ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@${{ needs.runterraform.outputs.public_ip }} uptime && break
+#             timeout=$((timeout - 10))
+#             sleep 10
+#           done
+#         timeout-minutes: 20
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Use the IP
