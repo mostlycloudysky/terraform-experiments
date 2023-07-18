@@ -1,4 +1,4 @@
-name: Provision EC2 and Run Ansible
+name: Destroy EC2
 
 on: workflow_dispatch
 
