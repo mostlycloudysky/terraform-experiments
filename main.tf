@@ -34,6 +34,20 @@ resource "aws_security_group" "cloudsky-ingress-all" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   // Terraform requires egress to be defined as it is disabled by default..
   egress {
     from_port   = 0
