@@ -49,9 +49,6 @@ jobs:
     needs: runterraform  # Make this job depend on the `terraform` job
     runs-on: ubuntu-latest
     steps:
-    
-      - name: Delay for 20 mins
-        run: sleep 1200
 
       - name: Set up SSH
         run: |
