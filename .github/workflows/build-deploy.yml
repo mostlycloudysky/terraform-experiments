@@ -51,5 +51,5 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo export DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }} >> ~/.bashrc && source ~/.bashrc"
         ssh -o StrictHostKeyChecking=no -i id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'mkdir -p /home/ec2-user/discord-bot'
         scp -o StrictHostKeyChecking=no -i id_rsa -r dist/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ec2-user/discord-bot
-        ssh -o StrictHostKeyChecking=no -i id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'cd /home/ec2-user/discord-bot && npm ci --production && pm2 start main.js'
+        ssh -o StrictHostKeyChecking=no -i id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'cd /home/ec2-user/discord-bot && npm ci --production && pm2 kill && pm2 start main.js'
       shell: bash
