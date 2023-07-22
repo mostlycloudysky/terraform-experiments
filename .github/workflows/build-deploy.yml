@@ -43,10 +43,6 @@ jobs:
       with:
         name: build
 
-    - name: Extract files
-      run: |
-        unzip build.zip
-        
     - name: Deploy to EC2
       run: |
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa
