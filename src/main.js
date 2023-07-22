@@ -15,7 +15,8 @@ client.on('message', async (msg) => {
   if (msg.content === '!devops') {
     try {
       let feed = await parser.parseURL(AWS_DEVOPS_BLOGS_RSS_URL);
-      feed.items.forEach((item) => {
+      feed = feed.items.slice(0, 5);
+      feed.forEach((item) => {
         const embed = new Discord.MessageEmbed()
           .setColor('#0099ff')
           .setTitle(item.title)
