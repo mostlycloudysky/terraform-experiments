@@ -2,6 +2,7 @@
 **/.terraform/*
 src/node_modules
 src/.env
+src/dist
 # .tfstate files
 *.tfstate
 *.tfstate.*
