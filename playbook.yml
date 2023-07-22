@@ -45,3 +45,8 @@
     - name: Display Node.js version
       debug:
         msg: 'Node.js version is {{ node_version.stdout }}'
+
+    - name: Install PM2 globally
+      npm:
+        name: pm2
+        global: yes
