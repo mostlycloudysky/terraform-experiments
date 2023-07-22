@@ -50,5 +50,5 @@ jobs:
         ls
         ssh -o StrictHostKeyChecking=no -i id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'mkdir -p /home/ec2-user/discord-bot'
         scp -o StrictHostKeyChecking=no -i id_rsa -r dist/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ec2-user/discord-bot
-        ssh -o StrictHostKeyChecking=no -i id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'cd /home/ec2-user/discord-bot && npm ci --production && pm2 restart all'
+        ssh -o StrictHostKeyChecking=no -i id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'cd /home/ec2-user/discord-bot && pm2 restart all'
       shell: bash
