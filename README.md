@@ -1,7 +1,7 @@
 # terraform-experiments
 
 
-![Discord BOT on EC2](Discord-bot.drawio.png)
+![Discord BOT on EC2](Discord-bot.png)
 
 
  
