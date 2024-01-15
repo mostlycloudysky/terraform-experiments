@@ -1,6 +1,8 @@
 name: Delete Terraform Workspace
-
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - workspace
 
 jobs:
   runterraform:
