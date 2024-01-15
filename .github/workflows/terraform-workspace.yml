@@ -1,9 +1,9 @@
-name: Provision EC2 auto apply
+name: Terraform Workspace
 
-on: workflow_dispatch
-  # push:
-  #   branches:
-  #     - test
+on:
+push:
+  branches:
+    - test
 
 jobs:
   runterraform:
@@ -22,15 +22,13 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
           terraform_wrapper: false
 
-      - name: Terraform init
-        run: terraform init -upgrade
+      - name: Terraform workspace list
+        run: terraform workspace list
 
-      # - name: Terraform remove state
-      #   id: terraform
-      #   run: terraform state rm aws_sns_topic.cloudysky-sns-topic
+      - name: Terraform workspace new sandeep-sandbox
+        run: terraform workspace new sandeep-sandbox
 
-      - name: Terraform Apply
-        id: terraform
-        run: terraform apply
+      - name: Terraform workspace list
+        run: terraform workspace list      
 
 
