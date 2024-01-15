@@ -113,6 +113,24 @@ resource "aws_route_table_association" "cloudysky-rt-assoc" {
 #   name = "cloudysky-sns-topic1"
 # }
 
+# Create a security group to allow port 80 and 443
+resource "aws_security_group" "cloudsky-sg" {
+  name   = "cloudsky-sg"
+  vpc_id = aws_vpc.cloudysky-vpc.id
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+
+
+
+
+
 
 
 

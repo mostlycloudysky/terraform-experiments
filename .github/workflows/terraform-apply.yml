@@ -1,0 +1,36 @@
+name: Provision EC2
+
+on: workflow_dispatch
+  push:
+    branches:
+      - test
+
+jobs:
+  runterraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: List out directory
+        run: ls
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
+
+      - name: Terraform init
+        run: terraform init -upgrade
+
+      # - name: Terraform remove state
+      #   id: terraform
+      #   run: terraform state rm aws_sns_topic.cloudysky-sns-topic
+
+      - name: Terraform Apply
+        id: terraform
+        run: terraform apply
+
+

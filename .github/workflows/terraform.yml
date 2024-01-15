@@ -22,9 +22,13 @@ jobs:
       - name: Terraform init
         run: terraform init -upgrade
 
-      - name: Terraform remove state
+      # - name: Terraform remove state
+      #   id: terraform
+      #   run: terraform state rm aws_sns_topic.cloudysky-sns-topic
+
+      - name: Terraform Apply
         id: terraform
-        run: terraform state rm aws_sns_topic.cloudysky-sns-topic
+        run: terraform apply -auto-approve
 
   #     - name: Configure AWS credentials
   #       uses: aws-actions/configure-aws-credentials@v1
