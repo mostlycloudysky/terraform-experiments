@@ -6,11 +6,20 @@ terraform {
     }
   }
 
-  cloud {
+  backend "remote" {
+    hostname     = "app.terraform.io"
     organization = "cloudysky"
 
     workspaces {
-      name = "terraform-sandeep-aws"
+      prefix = "my-app-"
     }
   }
+
+  # cloud {
+  #   organization = "cloudysky"
+
+  #   workspaces {
+  #     name_prefix = "my-app-"
+  #   }
+  # }
 }
