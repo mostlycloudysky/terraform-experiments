@@ -32,4 +32,4 @@ jobs:
         run: terraform workspace select terraform-sandeep-aws
 
       - name: Terraform delete workspace
-        run: terraform workspace delete terraform-sandeep-aws -force
+        run: terraform workspace delete terraform-sandeep-aws
