@@ -6,7 +6,7 @@ on:
       - workspace
 
 env:
-  TF_CLOUD_TOKEN: ${{ secrets.TF_CLOUD_TOKEN }} # Your Terraform Cloud API token
+  TF_CLOUD_TOKEN: ${{ secrets.TF_API_TOKEN }} # Your Terraform Cloud API token
   TF_WORKSPACE: terraform-sandeep-aws
 
 jobs:
