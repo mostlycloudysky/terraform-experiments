@@ -1,6 +1,6 @@
 name: Provision EC2
 
-on: workflow_dispatch
+on:
   push:
     branches:
       - test
