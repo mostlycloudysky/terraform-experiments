@@ -103,6 +103,11 @@ resource "aws_route_table_association" "cloudysky-rt-assoc" {
   route_table_id = aws_route_table.cloudysky-rt.id
 }
 
+# Add a SNS topic
+resource "aws_sns_topic" "cloudysky-sns-topic" {
+  name = "cloudysky-sns-topic"
+}
+
 
 
 
