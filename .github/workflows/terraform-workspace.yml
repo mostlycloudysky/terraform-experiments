@@ -7,7 +7,6 @@ on:
 
 env:
   TF_CLOUD_TOKEN: ${{ secrets.TF_API_TOKEN }} # Your Terraform Cloud API token
-  TF_WORKSPACE: terraform-sandeep-aws
 
 jobs:
   runterraform:
@@ -30,7 +29,7 @@ jobs:
         run: terraform init 
 
       - name: Terraform list workspaces
-        run: terraform workspace select $TF_WORKSPACE
+        run: terraform workspace select terraform-sandeep-aws
 
       - name: Terraform delete workspace
-        run: terraform workspace delete $TF_WORKSPACE -force
+        run: terraform workspace delete terraform-sandeep-aws -force
