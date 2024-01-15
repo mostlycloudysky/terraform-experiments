@@ -1,4 +1,5 @@
 name: Delete Terraform Workspace
+
 on:
   push:
     branches:
@@ -14,16 +15,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: List out directory
         run: ls
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v1 # Use the v1 version of the action
         with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-          terraform_wrapper: false
+          cli_config_credentials_token: ${{ secrets.TF_CLOUD_TOKEN }} # Use your Terraform Cloud API token
 
       - name: Terraform init
         run: terraform init 
@@ -33,6 +33,3 @@ jobs:
 
       - name: Terraform delete workspace
         run: terraform workspace delete $TF_WORKSPACE -force
-
-
-
