@@ -1,0 +1,49 @@
+name: Delete Terraform Workspace
+
+on: workflow_dispatch
+
+jobs:
+  runterraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: List out directory
+        run: ls
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
+
+      - name: Terraform init
+        run: terraform init -upgrade
+
+      - name: Terraform list workspaces
+        run: terraform workspace list
+
+      - name: Terraform delete workspace
+        run: terraform workspace delete -force
+
+    #   - name: Configure AWS credentials
+    #     uses: aws-actions/configure-aws-credentials@v1
+    #     with:
+    #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #       aws-region: us-east-1
+
+    #   - name: Output Instance Public IP
+    #     id: ip
+    #     run: |
+    #       IP=$(terraform output -raw instance_public_ip)
+    #       echo "::set-output name=PUBLIC_IP::$IP"
+    #       echo "The public IP is $IP"
+    #     env:
+    #       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+    # outputs:
+    #   public_ip: ${{ steps.ip.outputs.PUBLIC_IP }}
+
+
