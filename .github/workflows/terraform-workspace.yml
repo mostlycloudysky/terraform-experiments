@@ -2,7 +2,7 @@ name: Delete Terraform Workspace
 on:
   push:
     branches:
-      - master
+      - workspace
 
 env:
   TF_CLOUD_TOKEN: ${{ secrets.TF_CLOUD_TOKEN }} # Your Terraform Cloud API token
