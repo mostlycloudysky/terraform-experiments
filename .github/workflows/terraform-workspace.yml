@@ -1,9 +1,9 @@
 name: Terraform Workspace
 
 on:
-push:
-  branches:
-    - test
+  push:
+    branches:
+      - test
 
 jobs:
   runterraform:
