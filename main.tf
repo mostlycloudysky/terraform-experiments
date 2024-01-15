@@ -109,5 +109,11 @@ resource "aws_route_table_association" "cloudysky-rt-assoc" {
 # }
 
 
+resource "aws_sns_topic" "cloudysky-sns-topic" {
+  name = "cloudysky-sns-topic1"
+}
+
+
+
 
 
