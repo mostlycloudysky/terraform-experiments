@@ -11,7 +11,7 @@ terraform {
     organization = "cloudysky"
 
     workspaces {
-      prefix = "my-app-"
+      name = "sandeep-sandbox"
     }
   }
 
