@@ -125,6 +125,12 @@ resource "aws_security_group" "cloudsky-sg" {
   }
 }
 
+resource "null_resource" "example" {
+  provisioner "local-exec" {
+    command = "sleep 300" # Sleep for 300 seconds (5 minutes)
+  }
+}
+
 
 
 

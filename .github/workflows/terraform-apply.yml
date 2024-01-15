@@ -31,6 +31,6 @@ jobs:
 
       - name: Terraform Apply
         id: terraform
-        run: terraform apply
+        run: terraform apply --auto-approve
 
 
