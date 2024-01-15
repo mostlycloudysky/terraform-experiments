@@ -23,7 +23,7 @@ jobs:
           terraform_wrapper: false
 
       - name: Terraform init
-        run: terraform init -upgrade
+        run: terraform init
 
       - name: Terraform workspace new sandeep-sandbox
         run: terraform workspace new sandeep-sandbox
