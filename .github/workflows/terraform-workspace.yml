@@ -29,7 +29,7 @@ jobs:
         run: terraform init 
 
       - name: Terraform list workspaces
-        run: terraform workspace select terraform-sandeep-aws
+        run: terraform workspace select sandeep-sandbox
 
       - name: Terraform delete workspace
         run: terraform workspace delete terraform-sandeep-aws
