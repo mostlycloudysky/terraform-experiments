@@ -23,7 +23,8 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1 # Use the v1 version of the action
         with:
-          cli_config_credentials_token: ${{ secrets.TF_CLOUD_TOKEN }} # Use your Terraform Cloud API token
+          terraform_wrapper: false
+          cli_config_credentials_token: $TF_CLOUD_TOKEN # Use your Terraform Cloud API token
 
       - name: Terraform init
         run: terraform init 
