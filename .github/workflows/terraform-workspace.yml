@@ -27,8 +27,11 @@ jobs:
       - name: Terraform list workspaces
         run: terraform workspace list
 
+      - name: Terraform default workspace
+        run: terraform workspace select default
+
       - name: Terraform delete workspace
-        run: terraform workspace delete terraform-sandeep-aws
+        run: terraform workspace delete terraform-sandeep-aws -force
 
 
 
