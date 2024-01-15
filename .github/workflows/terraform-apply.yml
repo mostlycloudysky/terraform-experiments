@@ -1,9 +1,9 @@
 name: Provision EC2
 
-on:
-  push:
-    branches:
-      - test
+on: workflow_dispatch
+  # push:
+  #   branches:
+  #     - test
 
 jobs:
   runterraform:
