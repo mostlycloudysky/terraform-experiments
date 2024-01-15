@@ -25,11 +25,8 @@ jobs:
       - name: Terraform init
         run: terraform init -upgrade
 
-      - name: Terraform workspace list
-        run: terraform workspace list
-
-      - name: Terraform workspace new sandeep-sandbox
-        run: terraform workspace new sandeep-sandbox
+      - name: Terraform workspace new development
+        run: terraform workspace new development
 
       - name: Terraform workspace list
         run: terraform workspace list      
