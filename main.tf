@@ -58,7 +58,7 @@ resource "aws_security_group" "cloudsky-ingress-all" {
 
 }
 
-# EC2 Instance for testing
+# EC2 Instance for testing and add a 
 resource "aws_instance" "cloudysky-ec2" {
   ami                    = var.ami_id
   instance_type          = "t2.micro"
@@ -126,7 +126,7 @@ resource "aws_security_group" "cloudsky-sg" {
 }
 
 resource "aws_security_group" "cloudsky-sg-1" {
-  name   = "cloudsky-sg-1"
+  name   = "cloudsky-sg"
   vpc_id = aws_vpc.cloudysky-vpc.id
   ingress {
     from_port   = 22
@@ -141,6 +141,8 @@ resource "null_resource" "example" {
     command = "sleep 6000"
   }
 }
+
+
 
 
 
