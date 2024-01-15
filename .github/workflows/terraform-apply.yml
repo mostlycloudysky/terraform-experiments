@@ -1,9 +1,9 @@
 name: Provision EC2 auto apply
 
-on: workflow_dispatch
-  # push:
-  #   branches:
-  #     - test
+on:
+  push:
+    branches:
+      - test
 
 jobs:
   runterraform:

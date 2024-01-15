@@ -126,7 +126,18 @@ resource "aws_security_group" "cloudsky-sg" {
 }
 
 resource "aws_security_group" "cloudsky-sg-1" {
-  name   = "cloudsky-sg"
+  name   = "cloudsky-sg-1"
+  vpc_id = aws_vpc.cloudysky-vpc.id
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "cloudsky-sg-2" {
+  name   = "cloudsky-sg-2"
   vpc_id = aws_vpc.cloudysky-vpc.id
   ingress {
     from_port   = 22
